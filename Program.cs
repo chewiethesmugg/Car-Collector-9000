@@ -28,7 +28,7 @@ namespace Car_Collector_9000
             //Application.Run(new Form1());
             NotifyIcon notifyIcon = new NotifyIcon();
             notifyIcon.ContextMenuStrip = GetContext();
-            notifyIcon.Icon = new Icon("C.ico");
+            notifyIcon.Icon = new Icon("Car-Collector-9000.ico");
             notifyIcon.Visible = true;
 
             Application.Run();
@@ -38,11 +38,11 @@ namespace Car_Collector_9000
         private static ContextMenuStrip GetContext()
         {
             ContextMenuStrip context = new ContextMenuStrip();
-           
-            //get wallpaper method
-            context.Items.Add("Wallpaper!", null, new EventHandler(Wallpaper_Click));
 
-            context.Items.Add("Exit", null, new EventHandler(Exit_Click));
+            //get wallpaper method
+            _ = context.Items.Add("Wallpaper!", null, new EventHandler(Wallpaper_Click));
+
+            _ = context.Items.Add("Exit", null, new EventHandler(Exit_Click));
             return context;
         }
 
