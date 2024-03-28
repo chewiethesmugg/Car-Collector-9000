@@ -18,14 +18,10 @@ namespace Car_Collector_9000
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
-            //ApplicationConfiguration.Initialize();
-
+           
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            //Application.Run(new Form1());
             NotifyIcon notifyIcon = new NotifyIcon();
             notifyIcon.ContextMenuStrip = GetContext();
             notifyIcon.Icon = new Icon("Car-Collector-9000.ico");
@@ -67,15 +63,12 @@ namespace Car_Collector_9000
             targetUrl = "http://www.speedhunters.com/";
             //check if the folder has been updated within the last 
             pictureFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures) + "\\scraperImages";
-            Console.WriteLine(pictureFolder.ToString());
-
             bool renew = outDated(pictureFolder);
 
             //if folder was renewed within 7 days
             //pick random image
             if (!renew)
             {
-                Console.WriteLine("getting new images");
                 //get a random article to scrape
                 string page = getArticle(targetUrl);
                 List<string> images;
@@ -90,7 +83,7 @@ namespace Car_Collector_9000
         }
 
         //checks if folder not empty
-        //returns a boolean indicating if the images are outdated
+        //returns a boolean indicating if the images are not outdated
         //returns true if images were modified within last 7 days
         //returns false otherwise
         private static bool outDated(string folder)
@@ -123,7 +116,6 @@ namespace Car_Collector_9000
         //parsing the HTML for img tags
         private static List<string> parseHtml(string html)
         {
-            Console.WriteLine("Parsing HTML");
             HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
             doc.LoadHtml(html);
 
@@ -146,10 +138,7 @@ namespace Car_Collector_9000
             return random.Next(0, max);
         }
 
-        //only call this when the current folder is empty
-        //OR NEW CARS BUTTON SELECTED
         //find a random article to scrape
-        //for rn its a default site of speedhunters
         private static string getArticle(string target)
         {
             Console.WriteLine("Getting random article");
@@ -174,12 +163,10 @@ namespace Car_Collector_9000
             var HttpClient = new HttpClient();
             if (!Directory.Exists(filePath))
             {
-                Console.WriteLine($"created a new directory at {filePath}");
                 Directory.CreateDirectory(filePath);
             }
             else
             {
-                Console.WriteLine($"{filePath} exists!");
                 //only get new image 
                 DateTime lastModified = Directory.GetLastWriteTime(filePath);
             }
@@ -187,8 +174,6 @@ namespace Car_Collector_9000
             for (var i = 0; i < links.Count; i++)
             {
                 var fileName = "image" + i + ".jpg";
-
-
                 var imageBytes = await HttpClient.GetByteArrayAsync(links[i]);
                 var path = Path.Combine(filePath, $"{fileName}");
                 await File.WriteAllBytesAsync(path, imageBytes);
@@ -204,7 +189,6 @@ namespace Car_Collector_9000
             Console.WriteLine("Setting Desktop Wallpaper");
             var rand = new Random();
             var files = Directory.GetFiles(folderPath);
-            //Console.WriteLine(files.ToString);
             var imagePath = files[rand.Next(files.Length) - 1];
             Console.WriteLine(imagePath);
             //updating the desktop
