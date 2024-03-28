@@ -11,10 +11,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="C.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\scraperProject\scraperProject\bin\Debug\net6.0\HtmlAgilityPack.dll</HintPath>
     </Reference>
