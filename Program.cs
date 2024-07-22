@@ -16,9 +16,12 @@ namespace Car_Collector_9000
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static async Task Main()
         {
-           
+            //new start for debug
+            
+            //await scraper();
+       
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -26,8 +29,9 @@ namespace Car_Collector_9000
             notifyIcon.ContextMenuStrip = GetContext();
             notifyIcon.Icon = new Icon("Car-Collector-9000.ico");
             notifyIcon.Visible = true;
-
+            Console.WriteLine("running application");
             Application.Run();
+       
         }
 
 
@@ -49,6 +53,7 @@ namespace Car_Collector_9000
 
         private static void Wallpaper_Click(object sender, EventArgs e)
         {
+            Console.WriteLine("button clicked!");
             Task done = scraper();
         }
 
